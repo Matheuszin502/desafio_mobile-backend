@@ -1,4 +1,4 @@
-package com.grupo14_01.app;
+package com.grupo14T01.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
