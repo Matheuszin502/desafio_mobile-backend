@@ -1,8 +1,10 @@
-package com.grupo14T01.app.entidades;
+package com.grupo14turma01.app.entidades;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,16 +21,17 @@ public class Produto implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	private String nome;
 	private int unidades;
 	private double preco;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
 	private List<Item> item;
 	
-	public Produto(int id, String nome, int unidades, double preco) {
+	public Produto(long id, String nome, int unidades, double preco) {
 		this.id = id;
 		this.nome = nome;
 		this.unidades = unidades;
@@ -38,11 +41,11 @@ public class Produto implements Serializable {
 	public Produto() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

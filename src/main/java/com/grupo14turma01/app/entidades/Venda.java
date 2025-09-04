@@ -1,4 +1,4 @@
-package com.grupo14T01.app.entidades;
+package com.grupo14turma01.app.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class Venda implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
@@ -36,7 +36,7 @@ public class Venda implements Serializable {
 	private String formaPagamento;
 	private LocalDateTime data = LocalDateTime.now();
 	
-	public Venda(int id, Cliente cliente, List<Item> itens, double valor, String condicoes, String formaPagamento,
+	public Venda(long id, Cliente cliente, List<Item> itens, double valor, String condicoes, String formaPagamento,
 			LocalDateTime data) {
 		this.id = id;
 		this.cliente = cliente;
@@ -50,11 +50,11 @@ public class Venda implements Serializable {
 	public Venda() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

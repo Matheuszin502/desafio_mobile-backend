@@ -1,8 +1,10 @@
-package com.grupo14T01.app.entidades;
+package com.grupo14turma01.app.entidades;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,27 +21,38 @@ public class Cliente implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
+	private String nome;
 	private String telefone;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Venda> vendas;
 
-	public Cliente(int id, String telefone) {
+	public Cliente(long id, String nome, String telefone) {
 		this.id = id;
+		this.nome = nome;
 		this.telefone = telefone;
 	}
 	
 	public Cliente() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getTelefone() {

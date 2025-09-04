@@ -1,4 +1,4 @@
-package com.grupo14T01.app.entidades;
+package com.grupo14turma01.app.entidades;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,7 +18,7 @@ public class Item implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
@@ -28,7 +28,7 @@ public class Item implements Serializable {
 	@JoinColumn(name = "id_venda")
 	private Venda venda;
 
-	public Item(int id, Produto produto, Venda venda) {
+	public Item(long id, Produto produto, Venda venda) {
 		this.id = id;
 		this.produto = produto;
 		this.venda = venda;
@@ -37,11 +37,11 @@ public class Item implements Serializable {
 	public Item() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
