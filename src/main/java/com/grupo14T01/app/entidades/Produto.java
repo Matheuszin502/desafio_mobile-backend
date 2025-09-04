@@ -13,25 +13,29 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "clientes")
-public class Cliente implements Serializable {
+@Table(name = "produtos")
+public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String telefone;
+	private String nome;
+	private int unidades;
+	private double preco;
 	
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-	private List<Venda> vendas;
-
-	public Cliente(int id, String telefone) {
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	private List<Item> item;
+	
+	public Produto(int id, String nome, int unidades, double preco) {
 		this.id = id;
-		this.telefone = telefone;
+		this.nome = nome;
+		this.unidades = unidades;
+		this.preco = preco;
 	}
 	
-	public Cliente() {
+	public Produto() {
 	}
 
 	public int getId() {
@@ -42,16 +46,32 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
-	public List<Venda> getVendas() {
-		return vendas;
+
+	public int getUnidades() {
+		return unidades;
+	}
+
+	public void setUnidades(int unidades) {
+		this.unidades = unidades;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public List<Item> getItem() {
+		return item;
 	}
 
 	@Override
@@ -67,7 +87,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Produto other = (Produto) obj;
 		return id == other.id;
 	}
 }

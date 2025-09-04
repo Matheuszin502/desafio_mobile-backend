@@ -1,37 +1,40 @@
 package com.grupo14T01.app.entidades;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "clientes")
-public class Cliente implements Serializable {
+@Table(name = "itens")
+public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String telefone;
+	@ManyToOne
+	@JoinColumn(name = "id_produto")
+	private Produto produto;
 	
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-	private List<Venda> vendas;
+	@ManyToOne
+	@JoinColumn(name = "id_venda")
+	private Venda venda;
 
-	public Cliente(int id, String telefone) {
+	public Item(int id, Produto produto, Venda venda) {
 		this.id = id;
-		this.telefone = telefone;
+		this.produto = produto;
+		this.venda = venda;
 	}
-	
-	public Cliente() {
+
+	public Item() {
 	}
 
 	public int getId() {
@@ -42,16 +45,20 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
-	
-	public List<Venda> getVendas() {
-		return vendas;
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 	@Override
@@ -67,7 +74,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Item other = (Item) obj;
 		return id == other.id;
 	}
 }
