@@ -21,6 +21,10 @@ public class ClienteServico {
 	public Cliente buscarPorId(Long id) {
         return repositorio.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
+	
+	public List<Cliente> consultarPorNome(String nome) {
+		return repositorio.consultarPorNome(nome);
+	}
 
     public Cliente inserir(Cliente cliente) {
         return repositorio.save(cliente);

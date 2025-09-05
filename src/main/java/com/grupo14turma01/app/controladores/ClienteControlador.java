@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.grupo14turma01.app.controladores.util.URL;
 import com.grupo14turma01.app.entidades.Cliente;
 import com.grupo14turma01.app.servicos.ClienteServico;
 
@@ -31,6 +33,12 @@ public class ClienteControlador {
     public Cliente buscarPorId(@PathVariable Long id) {
         return servico.buscarPorId(id);
     }
+	
+	@GetMapping("/consultarnome")
+	public List<Cliente> consultarPorNome(@RequestParam String nome) {
+		URL.decodificarParamURL(nome);
+		return servico.consultarPorNome("%"+nome+"%");
+	}
 	
 	@PostMapping
     public Cliente inserir(@RequestBody Cliente cliente) {

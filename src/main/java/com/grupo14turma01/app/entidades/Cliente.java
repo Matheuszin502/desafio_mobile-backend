@@ -25,15 +25,19 @@ public class Cliente implements Serializable {
 	
 	private String nome;
 	private String telefone;
+	private String endereco;
+	private String observacoes;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Venda> vendas;
 
-	public Cliente(long id, String nome, String telefone) {
+	public Cliente(long id, String nome, String telefone, String endereco, String observacoes) {
 		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
+		this.endereco = endereco;
+		this.observacoes = observacoes;
 	}
 	
 	public Cliente() {
@@ -63,6 +67,22 @@ public class Cliente implements Serializable {
 		this.telefone = telefone;
 	}
 	
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+
 	public List<Venda> getVendas() {
 		return vendas;
 	}
