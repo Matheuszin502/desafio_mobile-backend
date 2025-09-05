@@ -25,12 +25,9 @@ public class ClienteServico {
 	public List<Cliente> consultarPorNome(String nome) {
 		return repositorio.consultarPorNome(nome);
 	}
-
+	
+	//inserir serve para editar também
     public Cliente inserir(Cliente cliente) {
-        return repositorio.save(cliente);
-    }
-    
-    public Cliente atualizar(Cliente cliente) {
         return repositorio.save(cliente);
     }
 

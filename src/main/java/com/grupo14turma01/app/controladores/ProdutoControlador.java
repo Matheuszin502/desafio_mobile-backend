@@ -14,41 +14,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grupo14turma01.app.controladores.util.URL;
-import com.grupo14turma01.app.entidades.Cliente;
-import com.grupo14turma01.app.servicos.ClienteServico;
+import com.grupo14turma01.app.entidades.Produto;
+import com.grupo14turma01.app.servicos.ProdutoServico;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteControlador {
+@RequestMapping("/produtos")
+public class ProdutoControlador {
 	
 	@Autowired
-	private ClienteServico servico;
+	private ProdutoServico servico;
 	
 	@GetMapping
-    public List<Cliente> listar() {
+    public List<Produto> listar() {
         return servico.listar();
     }
 	
 	@GetMapping("/{id}")
-    public Cliente buscarPorId(@PathVariable Long id) {
+    public Produto buscarPorId(@PathVariable Long id) {
         return servico.buscarPorId(id);
     }
 	
 	@GetMapping("/consultarnome")
-	public List<Cliente> consultarPorNome(@RequestParam String nome) {
+	public List<Produto> consultarPorNome(@RequestParam String nome) {
 		URL.decodificarParamURL(nome);
 		return servico.consultarPorNome("%"+nome+"%");
 	}
 	
 	@PostMapping
-    public Cliente inserir(@RequestBody Cliente cliente) {
-        return servico.inserir(cliente);
+    public Produto inserir(@RequestBody Produto produto) {
+        return servico.inserir(produto);
     }
 	
 	@PutMapping("/{id}")
-	public Cliente editar(@PathVariable Long id, @RequestBody Cliente cliente) {
-		cliente.setId(id);
-        return servico.inserir(cliente);
+	public Produto editar(@PathVariable Long id, @RequestBody Produto produto) {
+		produto.setId(id);
+        return servico.inserir(produto);
     }
 	
 	@DeleteMapping("/{id}")
