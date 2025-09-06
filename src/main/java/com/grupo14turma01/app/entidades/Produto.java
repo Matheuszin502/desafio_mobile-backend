@@ -1,17 +1,16 @@
 package com.grupo14turma01.app.entidades;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,18 +23,23 @@ public class Produto implements Serializable {
 	private long id;
 	
 	private String nome;
-	private int unidades;
 	private double preco;
+	private String observacoes;
+	
+	private int unidades;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-	private List<Item> item;
+	@ManyToOne
+	@JoinColumn(name = "id_venda")
+	private Venda venda;
 	
-	public Produto(long id, String nome, int unidades, double preco) {
+	public Produto(long id, String nome, double preco, String observacoes, int unidades, Venda venda) {
 		this.id = id;
 		this.nome = nome;
-		this.unidades = unidades;
 		this.preco = preco;
+		this.observacoes = observacoes;
+		this.unidades = unidades;
+		this.venda = venda;
 	}
 	
 	public Produto() {
@@ -57,14 +61,6 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public int getUnidades() {
-		return unidades;
-	}
-
-	public void setUnidades(int unidades) {
-		this.unidades = unidades;
-	}
-
 	public double getPreco() {
 		return preco;
 	}
@@ -72,9 +68,21 @@ public class Produto implements Serializable {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	
+	public String getObservacoes() {
+		return observacoes;
+	}
 
-	public List<Item> getItem() {
-		return item;
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+	
+	public int getUnidades() {
+		return unidades;
+	}
+
+	public void setUnidades(int unidades) {
+		this.unidades = unidades;
 	}
 
 	@Override

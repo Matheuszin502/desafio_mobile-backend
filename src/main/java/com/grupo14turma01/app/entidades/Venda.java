@@ -1,7 +1,6 @@
 package com.grupo14turma01.app.entidades;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,21 +28,26 @@ public class Venda implements Serializable {
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
-	private List<Item> itens;
+	private List<Produto> produtos;
 	
-	private double valor;
+	private int numProdutosVenda;
 	private String condicoes;
 	private String formaPagamento;
-	private LocalDateTime data = LocalDateTime.now();
+	private double valorTotal;
+	private boolean statusPagamento;
 	
-	public Venda(long id, Cliente cliente, List<Item> itens, double valor, String condicoes, String formaPagamento,
-			LocalDateTime data) {
+	private String data;
+	
+	public Venda(long id, Cliente cliente, List<Produto> produtos, int numProdutosVenda, String condicoes, String formaPagamento, 
+			double valorTotal, boolean statusPagamento, String data) {
 		this.id = id;
 		this.cliente = cliente;
-		this.itens = itens;
-		this.valor = valor;
+		this.produtos = produtos;
+		this.numProdutosVenda = numProdutosVenda;
+		this.valorTotal = valorTotal;
 		this.condicoes = condicoes;
 		this.formaPagamento = formaPagamento;
+		this.statusPagamento = statusPagamento;
 		this.data = data;
 	}
 
@@ -66,16 +70,20 @@ public class Venda implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public List<Item> getItens() {
-		return itens;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
 
-	public double getValor() {
-		return valor;
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public int getNumProdutosVenda() {
+		return numProdutosVenda;
+	}
+
+	public void setNumProdutosVenda(int numProdutosVenda) {
+		this.numProdutosVenda = numProdutosVenda;
 	}
 
 	public String getCondicoes() {
@@ -94,11 +102,27 @@ public class Venda implements Serializable {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public LocalDateTime getData() {
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public boolean isStatusPagamento() {
+		return statusPagamento;
+	}
+
+	public void setStatusPagamento(boolean statusPagamento) {
+		this.statusPagamento = statusPagamento;
+	}
+
+	public String getData() {
 		return data;
 	}
 
-	public void setData(LocalDateTime data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
