@@ -34,8 +34,6 @@ public class PagamentoServico {
     	v.setValorPendente(v.getValorPendente() - pagamento.getValor());
     	if (v.getValorPendente() == 0)
     		v.setStatusPagamento(true);
-    	else if (v.getValorPendente() < 0)
-    		throw new RuntimeException("Erro, valor do pagamento excede valor pendente");
     	
     	repositorioVenda.save(v);
         return repositorio.save(pagamento);
