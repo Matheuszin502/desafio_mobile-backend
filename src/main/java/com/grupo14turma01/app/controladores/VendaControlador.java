@@ -49,7 +49,7 @@ public class VendaControlador {
 	@PutMapping("/{id}")
 	public Venda editar(@PathVariable Long id, @RequestBody Venda venda) {
 		venda.setId(id);
-        return servico.inserir(venda);
+        return servico.editar(id, venda);
     }
 	
 	@DeleteMapping("/{id}")

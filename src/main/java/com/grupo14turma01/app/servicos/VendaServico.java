@@ -44,7 +44,6 @@ public class VendaServico {
 		return repositorio.consultarPorNome(nome);
 	}
 	
-	//inserir serve para editar também
 	@Transactional
     public Venda inserir(Venda venda) {
 		// Checando se cliente existe
@@ -66,12 +65,35 @@ public class VendaServico {
     	venda.setProdutos(lista);
     	
     	venda.setValorTotal(soma);
+    	venda.setValorPendente(soma);
     	
     	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     	sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
     	venda.setData(sdf.format(new Date()));
     	
         return repositorio.save(entityManager.merge(venda));
+    }
+	
+	@Transactional
+    public Venda editar(long id, Venda venda) {
+		if (venda.getValorPendente() < venda.getValorTotal())
+			throw new RuntimeException("Erro, não é permitido editar vendas pagas completa ou parcialmente.");
+		else if (venda.getProdutos() != null)
+			throw new RuntimeException("Erro, não é permitido alterar produtos de uma venda já registrada.");
+    	
+		Venda vendaOriginal = repositorio.findById(id).get();
+		
+		if (vendaOriginal.getCliente() != null && venda.getCliente() != null)
+			if (vendaOriginal.getCliente().getId() != venda.getCliente().getId())
+				vendaOriginal.setCliente(repositorioCliente.findById(venda.getCliente().getId()).get());
+		if (venda.getCondicoes() != null)
+			vendaOriginal.setCondicoes(venda.getCondicoes());
+		if (venda.getFormaPagamento() != null)
+			vendaOriginal.setFormaPagamento(venda.getFormaPagamento());
+		if (venda.getData() != null)
+			vendaOriginal.setData(venda.getData());
+
+        return repositorio.save(entityManager.merge(vendaOriginal));
     }
 	
     public void deletar(Long id, Venda venda) {

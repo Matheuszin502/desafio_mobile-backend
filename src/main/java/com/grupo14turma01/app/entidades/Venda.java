@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,16 +32,21 @@ public class Venda implements Serializable {
 	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
 	private List<Produto> produtos;
 	
+	@OneToMany(mappedBy = "venda")
+	@JsonManagedReference
+	private List<Pagamento> pagamentos;
+	
 	private int numProdutosVenda;
 	private String condicoes;
 	private String formaPagamento;
 	private double valorTotal;
+	private double valorPendente;
 	private boolean statusPagamento;
 	
 	private String data;
 	
 	public Venda(long id, Cliente cliente, List<Produto> produtos, int numProdutosVenda, String condicoes, String formaPagamento, 
-			double valorTotal, boolean statusPagamento, String data) {
+			double valorTotal, double valorPendente, boolean statusPagamento, String data) {
 		this.id = id;
 		this.cliente = cliente;
 		this.produtos = produtos;
@@ -47,6 +54,7 @@ public class Venda implements Serializable {
 		this.valorTotal = valorTotal;
 		this.condicoes = condicoes;
 		this.formaPagamento = formaPagamento;
+		this.valorPendente = valorPendente;
 		this.statusPagamento = statusPagamento;
 		this.data = data;
 	}
@@ -76,6 +84,14 @@ public class Venda implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
 	}
 
 	public int getNumProdutosVenda() {
@@ -108,6 +124,14 @@ public class Venda implements Serializable {
 
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+	public double getValorPendente() {
+		return valorPendente;
+	}
+
+	public void setValorPendente(double valorPendente) {
+		this.valorPendente = valorPendente;
 	}
 
 	public boolean isStatusPagamento() {
